@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Book a session</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-badge"></div>
+      <div>
+        <div class="brand-title">Alex Strong</div>
+        <div class="brand-sub">Personal Fitness Trainer · Bucharest</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="./index.html">Home</a>
+      <a href="./achievements.html">Achievements</a>
+      <a href="./booking.html">Book</a>
+      <button id="trainerModeBtn" class="btn" type="button">Trainer mode: OFF</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div id="trainerModeHint" class="small warn" style="display:none; margin-bottom:12px">
+    Trainer mode is enabled. Right-click slots to block/unblock them.
+  </div>
+
+  <section class="card">
+    <div class="spread">
+      <div>
+        <h2 class="h2">Book a session</h2>
+        <div class="small">Click a green/free slot or a blue/common slot to book. Red is exclusive. Gray is blocked.</div>
+      </div>
+      <div class="row">
+        <button id="prevWeekBtn" class="btn" type="button">← Prev</button>
+        <button id="thisWeekBtn" class="btn" type="button">This week</button>
+        <button id="nextWeekBtn" class="btn" type="button">Next →</button>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="spread">
+      <div class="legend">
+        <span class="leg"><span class="dot green"></span> Free</span>
+        <span class="leg"><span class="dot red"></span> Single</span>
+        <span class="leg"><span class="dot blue"></span> Common</span>
+        <span class="leg"><span class="dot gray"></span> Blocked</span>
+      </div>
+      <div class="row">
+        <button id="clearBookingsBtn" class="btn" type="button">Clear bookings</button>
+        <button id="clearBlockedBtn" class="btn danger" type="button">Clear blocked</button>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="small" id="weekLabel"></div>
+    <div style="margin-top:12px" id="calendarRoot"></div>
+
+    <div class="hr"></div>
+
+    <div id="trainerHelp" class="small warn" style="display:none">
+      Trainer tip: <strong>right-click</strong> any slot to block/unblock it (gray).
+    </div>
+  </section>
+</main>
+
+<!-- Booking modal -->
+<div id="modalOverlay" class="modalOverlay">
+  <div id="modal" class="modal">
+    <div class="spread">
+      <h3 class="modalTitle">Confirm booking</h3>
+      <button id="closeModalBtn" class="btn" type="button">Close</button>
+    </div>
+
+    <div class="hr"></div>
+    <div class="small"><strong>Interval:</strong> <span id="slotLabel"></span></div>
+
+    <div class="hr"></div>
+
+    <div class="cols2">
+      <div>
+        <label class="small">Booking type</label>
+        <select id="bookingType" class="select">
+          <option value="common">Common (shared)</option>
+          <option id="bookingTypeSingle" value="single">Single (exclusive)</option>
+        </select>
+        <div class="small" style="margin-top:8px">
+          Single = exclusive (red). Common = shareable (blue).
+        </div>
+      </div>
+
+      <div class="card" style="padding:12px; background:rgba(255,255,255,.03)">
+        <div class="small"><strong>Payment note:</strong> booking is saved only after payment success.</div>
+        <div class="small" style="margin-top:8px">Payment is in <strong>RON</strong>.</div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="cols2">
+      <div>
+        <label class="small">First name</label>
+        <input id="firstName" class="input" />
+      </div>
+      <div>
+        <label class="small">Surname</label>
+        <input id="lastName" class="input" />
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <label class="small">Phone number</label>
+      <input id="phone" class="input" placeholder="+40..." />
+    </div>
+
+    <div style="margin-top:12px">
+      <label class="small">Message (optional)</label>
+      <textarea id="message" class="textarea"
+        placeholder="e.g., I want leg day / focus on back / recovering from a knee issue..."></textarea>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="card" style="padding:12px; background:rgba(255,255,255,.03)">
+      <div style="font-weight:800; margin-bottom:6px">Card payment</div>
+      <div class="small">You’ll be redirected to Stripe Checkout.</div>
+    </div>
+
+    <div id="payError" class="small" style="margin-top:10px; color: rgba(255,77,77,.95)"></div>
+
+    <div class="hr"></div>
+    <div class="row">
+      <button id="payConfirmBtn" class="btn primary" type="button">Pay & confirm</button>
+    </div>
+  </div>
+</div>
+
+<script src="./site.js"></script>
+</body>
+</html>

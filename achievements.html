@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Achievements</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-badge"></div>
+      <div>
+        <div class="brand-title">Alex Strong</div>
+        <div class="brand-sub">Personal Fitness Trainer · Bucharest</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="./index.html">Home</a>
+      <a href="./achievements.html">Achievements</a>
+      <a href="./booking.html">Book</a>
+      <button id="trainerModeBtn" class="btn" type="button">Trainer mode: OFF</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div id="trainerModeHint" class="small warn" style="display:none; margin-bottom:12px">
+    Trainer mode is enabled. You can add/edit/delete achievements.
+  </div>
+
+  <section class="card">
+    <div class="spread">
+      <div>
+        <h2 class="h2">Achievements & transformations</h2>
+        <div class="small">Visitors can view. Only the trainer can add/edit/delete.</div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div id="trainerOnlyWrap" style="display:none">
+      <form id="addProgressForm">
+        <div class="cols2">
+          <div>
+            <label class="small">Title</label>
+            <input id="pTitle" class="input" placeholder="e.g., 12-week recomposition" />
+          </div>
+          <div>
+            <label class="small">Image URL</label>
+            <input id="pImageUrl" class="input" placeholder="https://..." />
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <label class="small">Notes</label>
+          <textarea id="pNote" class="textarea" placeholder="What changed? Strength, bodyweight, habits..."></textarea>
+        </div>
+
+        <div class="hr"></div>
+        <div class="row">
+          <button class="btn primary" type="submit">Add post</button>
+        </div>
+      </form>
+
+      <div class="hr"></div>
+    </div>
+
+    <div id="progressEmptyMsg" class="small" style="display:none">No posts yet.</div>
+    <div id="progressList" class="gallery"></div>
+  </section>
+</main>
+
+<!-- Edit achievement modal -->
+<div id="editProgOverlay" class="modalOverlay">
+  <div id="editProgModal" class="modal">
+    <div class="spread">
+      <h3 class="modalTitle">Edit achievement</h3>
+      <button id="epCloseBtn" class="btn" type="button">Close</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="cols2">
+      <div>
+        <label class="small">Title</label>
+        <input id="epTitle" class="input" />
+      </div>
+      <div>
+        <label class="small">Image URL</label>
+        <input id="epImage" class="input" placeholder="https://..." />
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <label class="small">Notes</label>
+      <textarea id="epNote" class="textarea"></textarea>
+    </div>
+
+    <div class="hr"></div>
+    <div class="row">
+      <button id="epSaveBtn" class="btn primary" type="button">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<script src="./site.js"></script>
+</body>
+</html>

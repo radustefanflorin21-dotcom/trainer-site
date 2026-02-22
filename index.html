@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Personal Fitness Trainer</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-badge"></div>
+      <div>
+        <div class="brand-title">Alex Strong</div>
+        <div class="brand-sub">Personal Fitness Trainer · Bucharest</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="./index.html">Home</a>
+      <a href="./achievements.html">Achievements</a>
+      <a href="./booking.html">Book</a>
+      <button id="trainerModeBtn" class="btn" type="button">Trainer mode: OFF</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div id="trainerModeHint" class="small warn" style="display:none; margin-bottom:12px">
+    Trainer mode is enabled. You can edit About, Achievements, Prices, and block calendar slots.
+  </div>
+
+  <div class="grid2">
+    <section class="card">
+      <h1 class="h1">Train smart. Get strong. Stay consistent.</h1>
+      <p class="p">
+        Hi — I’m <strong>Alex Strong</strong>, a personal fitness trainer based in <strong>Bucharest</strong>.
+        I help people build sustainable strength, lose fat, improve mobility, and feel confident in the gym.
+      </p>
+
+      <div class="hr"></div>
+
+      <h2 class="h2">Pricing</h2>
+      <p class="p" style="margin-bottom:0">
+        Single (exclusive): <strong id="priceSingle">—</strong><br/>
+        Common (shared): <strong id="priceCommon">—</strong>
+      </p>
+      <div class="row" style="margin-top:12px">
+        <button id="editPricesBtn" class="btn primary" style="display:none" type="button">Edit prices</button>
+      </div>
+
+      <div class="hr"></div>
+
+      <h2 class="h2">How booking works</h2>
+      <p class="p">
+        Book a <strong>1-hour</strong> slot from the calendar.
+        <br/>• <strong>Single</strong> — exclusive 1-on-1 (red)
+        <br/>• <strong>Common</strong> — shared slot (blue)
+        <br/>Free slots are green; trainer-blocked slots are gray.
+      </p>
+
+      <div class="row">
+        <a class="btn primary" href="./booking.html">Go to booking</a>
+        <a class="btn" href="./achievements.html">See achievements</a>
+      </div>
+    </section>
+
+    <aside class="card">
+      <h2 class="h2">Availability colors</h2>
+      <div class="legend">
+        <span class="leg"><span class="dot green"></span> Free</span>
+        <span class="leg"><span class="dot red"></span> Single</span>
+        <span class="leg"><span class="dot blue"></span> Common</span>
+        <span class="leg"><span class="dot gray"></span> Blocked</span>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="small warn">
+        Real payments are handled via Stripe Checkout in RON, and bookings confirm after Stripe webhook verification.
+      </div>
+    </aside>
+  </div>
+
+  <div class="hr"></div>
+
+  <section class="card">
+    <div class="spread">
+      <div>
+        <h2 class="h2">About the trainer</h2>
+        <div class="small">Trainer can add text, images, and videos (trainer mode only).</div>
+      </div>
+      <div class="row">
+        <button id="editAboutBtn" class="btn primary" style="display:none" type="button">Edit About</button>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+    <div id="aboutBlocks" class="gallery"></div>
+  </section>
+</main>
+
+<!-- About editor modal -->
+<div id="aboutOverlay" class="modalOverlay">
+  <div id="aboutModal" class="modal">
+    <div class="spread">
+      <h3 class="modalTitle">Edit About section</h3>
+      <button id="aboutCloseBtn" class="btn" type="button">Close</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="cols2">
+      <div>
+        <label class="small">Add block type</label>
+        <select id="aboutAddType" class="select">
+          <option value="text">Text</option>
+          <option value="image">Image</option>
+          <option value="video">Video</option>
+        </select>
+      </div>
+      <div style="display:flex; align-items:end">
+        <button id="aboutAddBtn" class="btn primary" type="button">Add block</button>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+    <div id="aboutEditList" style="display:flex; flex-direction:column; gap:10px"></div>
+  </div>
+</div>
+
+<!-- Prices modal -->
+<div id="pricesOverlay" class="modalOverlay">
+  <div id="pricesModal" class="modal">
+    <div class="spread">
+      <h3 class="modalTitle">Edit prices (RON)</h3>
+      <button id="pricesCloseBtn" class="btn" type="button">Close</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="cols2">
+      <div>
+        <label class="small">Single (RON)</label>
+        <input id="inpSingleRon" class="input" type="number" min="1" step="1" />
+      </div>
+      <div>
+        <label class="small">Common (RON)</label>
+        <input id="inpCommonRon" class="input" type="number" min="1" step="1" />
+      </div>
+    </div>
+
+    <div class="hr"></div>
+    <div class="row">
+      <button id="pricesSaveBtn" class="btn primary" type="button">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="./site.js"></script>
+</body>
+</html>
