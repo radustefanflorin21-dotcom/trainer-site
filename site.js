@@ -135,7 +135,96 @@ async function loadPublic(){
   return PUBLIC;
 }
 
+
+/* ---------- Profile (name/subtitle/info/photo) ---------- */
+function initProfileUI(){
+  function apply(){
+    if (!PUBLIC?.profile) return;
+    const name = PUBLIC.profile.name || "Trainer";
+    const subtitle = PUBLIC.profile.subtitle || "";
+    const info = PUBLIC.profile.info || "";
+    const photo = PUBLIC.profile.photoUrl || "";
+
+    const brandName = qs("brandName");
+    const brandSub = qs("brandSub");
+    if (brandName) brandName.textContent = name;
+    if (brandSub) brandSub.textContent = subtitle || brandSub.textContent;
+
+    const inlineName = qs("trainerNameInline");
+    if (inlineName) inlineName.textContent = name;
+
+    const subtitleEl = qs("trainerSubtitle");
+    if (subtitleEl) subtitleEl.textContent = subtitle;
+
+    const infoEl = qs("trainerInfo");
+    if (infoEl) infoEl.textContent = info;
+
+    const photoEl = qs("trainerPhoto");
+    if (photoEl && photo) photoEl.src = photo;
+  }
+
+  function applyTrainerUI(){
+    const isTrainer = !!getAdminToken();
+    const btn = qs("editProfileBtn");
+    if (btn) btn.style.display = isTrainer ? "inline-flex" : "none";
+  }
+
+  const overlay = qs("profileOverlay");
+  const modal = qs("profileModal");
+  const closeBtn = qs("profileCloseBtn");
+  const saveBtn = qs("profileSaveBtn");
+  const btn = qs("editProfileBtn");
+
+  function close(){ if (overlay) overlay.style.display = "none"; }
+
+  if (btn) {
+    btn.addEventListener("click", () => {
+      if (!getAdminToken()) return alert("Trainer mode required.");
+      if (!PUBLIC?.profile) return;
+
+      qs("inpTrainerName").value = PUBLIC.profile.name || "";
+      qs("inpTrainerSubtitle").value = PUBLIC.profile.subtitle || "";
+      qs("inpTrainerInfo").value = PUBLIC.profile.info || "";
+      qs("inpTrainerPhoto").value = PUBLIC.profile.photoUrl || "";
+
+      if (overlay) overlay.style.display = "flex";
+    });
+  }
+
+  if (overlay && modal) {
+    overlay.addEventListener("click", close);
+    modal.addEventListener("click", (e) => e.stopPropagation());
+  }
+  if (closeBtn) closeBtn.addEventListener("click", close);
+
+  if (saveBtn) {
+    saveBtn.addEventListener("click", async () => {
+      const name = qs("inpTrainerName").value.trim();
+      const subtitle = qs("inpTrainerSubtitle").value.trim();
+      const info = qs("inpTrainerInfo").value.trim();
+      const photoUrl = qs("inpTrainerPhoto").value.trim();
+
+      if (!name) return alert("Trainer name is required.");
+
+      try {
+        await adminPut("/admin/state", { profile: { name, subtitle, info, photoUrl } });
+        PUBLIC = await loadPublic();
+        apply();
+        close();
+        alert("Profile saved.");
+      } catch (e) {
+        alert(`Save failed: ${e.message}`);
+      }
+    });
+  }
+
+  document.addEventListener("trainer-changed", applyTrainerUI);
+  applyTrainerUI();
+  apply();
+}
+
 /* ---------- Home: About + Prices (trainer editable) ---------- */
+
 function initHome(){
   const aboutRoot = qs("aboutBlocks");
   const editAboutBtn = qs("editAboutBtn");
@@ -702,6 +791,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  initProfileUI();
   initHome();
   initAchievements();
   initBooking();

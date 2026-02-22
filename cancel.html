@@ -12,8 +12,8 @@
     <div class="brand">
       <div class="brand-badge"></div>
       <div>
-        <div class="brand-title">Alex Strong</div>
-        <div class="brand-sub">Personal Fitness Trainer · Bucharest</div>
+        <div class="brand-title" id="brandName">Alex Strong</div>
+        <div class="brand-sub" id="brandSub">Personal Fitness Trainer · Bucharest</div>
       </div>
     </div>
     <nav class="nav">
@@ -32,5 +32,43 @@
     </div>
   </section>
 </main>
+<!-- Profile editor modal -->
+<div id="profileOverlay" class="modalOverlay">
+  <div id="profileModal" class="modal">
+    <div class="spread">
+      <h3 class="modalTitle">Edit trainer profile</h3>
+      <button id="profileCloseBtn" class="btn" type="button">Close</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="cols2">
+      <div>
+        <label class="small">Trainer name</label>
+        <input id="inpTrainerName" class="input" placeholder="e.g., Alex Strong" />
+      </div>
+      <div>
+        <label class="small">Subtitle (shown under name)</label>
+        <input id="inpTrainerSubtitle" class="input" placeholder="e.g., Personal Fitness Trainer · Bucharest" />
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <label class="small">Trainer information (bio)</label>
+      <textarea id="inpTrainerInfo" class="textarea" placeholder="Short bio, specialties, approach..."></textarea>
+    </div>
+
+    <div style="margin-top:12px">
+      <label class="small">Trainer picture URL</label>
+      <input id="inpTrainerPhoto" class="input" placeholder="https://..." />
+    </div>
+
+    <div class="hr"></div>
+    <div class="row">
+      <button id="profileSaveBtn" class="btn primary" type="button">Save profile</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

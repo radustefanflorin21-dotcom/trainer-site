@@ -12,14 +12,15 @@
     <div class="brand">
       <div class="brand-badge"></div>
       <div>
-        <div class="brand-title">Alex Strong</div>
-        <div class="brand-sub">Personal Fitness Trainer · Bucharest</div>
+        <div class="brand-title" id="brandName">Alex Strong</div>
+        <div class="brand-sub" id="brandSub">Personal Fitness Trainer · Bucharest</div>
       </div>
     </div>
     <nav class="nav">
       <a href="./index.html">Home</a>
       <a href="./achievements.html">Achievements</a>
       <a href="./booking.html">Book</a>
+      <button id="editProfileBtn" class="btn primary" style="display:none" type="button">Edit profile</button>
       <button id="trainerModeBtn" class="btn" type="button">Trainer mode: OFF</button>
     </nav>
   </div>
@@ -32,11 +33,24 @@
 
   <div class="grid2">
     <section class="card">
-      <h1 class="h1">Train smart. Get strong. Stay consistent.</h1>
-      <p class="p">
-        Hi — I’m <strong>Alex Strong</strong>, a personal fitness trainer based in <strong>Bucharest</strong>.
+  <div class="spread" style="align-items:flex-start">
+    <div style="flex:1; min-width:260px">
+      <h1 class="h1" id="heroHeadline">Train smart. Get strong. Stay consistent.</h1>
+      <p class="p" id="heroIntro">
+        Hi — I’m <strong id="trainerNameInline">Alex Strong</strong>, a personal fitness trainer.
+      </p>
+      <p class="p" id="trainerInfo">
         I help people build sustainable strength, lose fat, improve mobility, and feel confident in the gym.
       </p>
+    </div>
+    <div style="width:260px; max-width:100%">
+      <div class="aboutBlock" style="padding:12px">
+        <div style="font-weight:800;margin-bottom:10px">Trainer profile</div>
+        <img id="trainerPhoto" src="https://images.unsplash.com/photo-1550345332-09e3ac987658?q=80&w=1200&auto=format&fit=crop" alt="Trainer photo"/>
+        <div class="small" style="margin-top:10px" id="trainerSubtitle">Personal Fitness Trainer · Bucharest</div>
+      </div>
+    </div>
+  </div>
 
       <div class="hr"></div>
 
@@ -99,6 +113,45 @@
     <div id="aboutBlocks" class="gallery"></div>
   </section>
 </main>
+
+<!-- Profile editor modal -->
+<div id="profileOverlay" class="modalOverlay">
+  <div id="profileModal" class="modal">
+    <div class="spread">
+      <h3 class="modalTitle">Edit trainer profile</h3>
+      <button id="profileCloseBtn" class="btn" type="button">Close</button>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="cols2">
+      <div>
+        <label class="small">Trainer name</label>
+        <input id="inpTrainerName" class="input" placeholder="e.g., Alex Strong" />
+      </div>
+      <div>
+        <label class="small">Subtitle (shown under name)</label>
+        <input id="inpTrainerSubtitle" class="input" placeholder="e.g., Personal Fitness Trainer · Bucharest" />
+      </div>
+    </div>
+
+    <div style="margin-top:12px">
+      <label class="small">Trainer information (bio)</label>
+      <textarea id="inpTrainerInfo" class="textarea" placeholder="Short bio, specialties, approach..."></textarea>
+    </div>
+
+    <div style="margin-top:12px">
+      <label class="small">Trainer picture URL</label>
+      <input id="inpTrainerPhoto" class="input" placeholder="https://..." />
+      <div class="small" style="margin-top:8px">Tip: use a direct image URL (cdn / your site / Cloudflare R2). Some Google Drive links won’t work unless they are direct public file URLs.</div>
+    </div>
+
+    <div class="hr"></div>
+    <div class="row">
+      <button id="profileSaveBtn" class="btn primary" type="button">Save profile</button>
+    </div>
+  </div>
+</div>
 
 <!-- About editor modal -->
 <div id="aboutOverlay" class="modalOverlay">

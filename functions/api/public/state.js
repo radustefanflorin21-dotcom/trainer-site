@@ -27,6 +27,7 @@ export async function onRequestGet({ env }) {
   }
 
   const body = {
+    profile: state.profile,
     prices: state.prices,
     about: state.about,
     achievements: state.achievements,
@@ -53,6 +54,12 @@ async function loadState(env) {
   if (raw) return raw;
 
   const seed = {
+    profile: {
+      name: "Alex Strong",
+      subtitle: "Personal Fitness Trainer · Bucharest",
+      info: "I help people build sustainable strength, lose fat, improve mobility, and feel confident in the gym.",
+      photoUrl: "https://images.unsplash.com/photo-1550345332-09e3ac987658?q=80&w=1200&auto=format&fit=crop"
+    },
     prices: { singleRon: 200, commonRon: 120 },
     about: [
       { id: "ab-1", type: "text", title: "My approach", text: "Sustainable strength, movement quality, and habits you can keep." }

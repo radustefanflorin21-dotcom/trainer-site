@@ -5,7 +5,16 @@ export async function onRequestPut({ request, env }) {
   const state = await env.APP_KV.get("state", "json");
   if (!state) return new Response("Missing state", { status: 500 });
 
-  if (patch.prices) {
+  if (patch.profile) {
+  const name = String(patch.profile.name || "").trim();
+  const subtitle = String(patch.profile.subtitle || "").trim();
+  const info = String(patch.profile.info || "").trim();
+  const photoUrl = String(patch.profile.photoUrl || "").trim();
+  if (!name) return new Response("Invalid profile name", { status: 400 });
+  state.profile = { name, subtitle, info, photoUrl };
+}
+
+if (patch.prices) {
     const singleRon = Number(patch.prices.singleRon);
     const commonRon = Number(patch.prices.commonRon);
     if (!Number.isFinite(singleRon) || singleRon <= 0) return new Response("Invalid singleRon", { status: 400 });
