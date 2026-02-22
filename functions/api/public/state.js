@@ -51,7 +51,19 @@ function json(obj, status = 200) {
 
 async function loadState(env) {
   const raw = await env.APP_KV.get("state", "json");
-  if (raw) return raw;
+  if (raw) {
+    // BACKFILL_PROFILE: ensure older stored state has profile
+    if (!raw.profile) {
+      raw.profile = {
+      name: "Alex Strong",
+      subtitle: "Personal Fitness Trainer · Bucharest",
+      info: "I help people build sustainable strength, lose fat, improve mobility, and feel confident in the gym.",
+      photoUrl: "https://images.unsplash.com/photo-1550345332-09e3ac987658?q=80&w=1200&auto=format&fit=crop"
+    };
+      await env.APP_KV.put("state", JSON.stringify(raw));
+    }
+    return raw;
+  }
 
   const seed = {
     profile: {

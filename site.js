@@ -139,16 +139,27 @@ async function loadPublic(){
 /* ---------- Profile (name/subtitle/info/photo) ---------- */
 function initProfileUI(){
   function apply(){
-    if (!PUBLIC?.profile) return;
-    const name = PUBLIC.profile.name || "Trainer";
-    const subtitle = PUBLIC.profile.subtitle || "";
-    const info = PUBLIC.profile.info || "";
-    const photo = PUBLIC.profile.photoUrl || "";
+    const p = (PUBLIC && PUBLIC.profile) ? PUBLIC.profile : {};
+    const name = p.name || "Alex Strong";
+    const subtitle = p.subtitle || "";
+    const info = p.info || "";
+    const photo = p.photoUrl || "";
 
     const brandName = qs("brandName");
     const brandSub = qs("brandSub");
     if (brandName) brandName.textContent = name;
     if (brandSub) brandSub.textContent = subtitle || brandSub.textContent;
+
+    const avatar = qs("brandAvatar");
+    if (avatar) {
+      if (photo) {
+        avatar.style.backgroundImage = `url("${photo.replaceAll('"', '%22')}")`;
+        avatar.classList.add("has-photo");
+      } else {
+        avatar.style.backgroundImage = "";
+        avatar.classList.remove("has-photo");
+      }
+    }
 
     const inlineName = qs("trainerNameInline");
     if (inlineName) inlineName.textContent = name;
@@ -180,12 +191,11 @@ function initProfileUI(){
   if (btn) {
     btn.addEventListener("click", () => {
       if (!getAdminToken()) return alert("Trainer mode required.");
-      if (!PUBLIC?.profile) return;
-
-      qs("inpTrainerName").value = PUBLIC.profile.name || "";
-      qs("inpTrainerSubtitle").value = PUBLIC.profile.subtitle || "";
-      qs("inpTrainerInfo").value = PUBLIC.profile.info || "";
-      qs("inpTrainerPhoto").value = PUBLIC.profile.photoUrl || "";
+      const p = (PUBLIC && PUBLIC.profile) ? PUBLIC.profile : {};
+      qs("inpTrainerName").value = p.name || "";
+      qs("inpTrainerSubtitle").value = p.subtitle || "";
+      qs("inpTrainerInfo").value = p.info || "";
+      qs("inpTrainerPhoto").value = p.photoUrl || "";
 
       if (overlay) overlay.style.display = "flex";
     });
